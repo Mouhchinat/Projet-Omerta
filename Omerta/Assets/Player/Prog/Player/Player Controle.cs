@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UIElements;
 public class PlayerControle : MonoBehaviour
 {
     public GameObject Joueur;
@@ -10,11 +11,18 @@ public class PlayerControle : MonoBehaviour
     public float horizontalmove;
     public float verticalmove;
     // Update is called once per frame
+
+
+    private void Start()
+    {
+        Joueur.GetComponent<Animation>().Play();
+    }
+
     void Update()
     {
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") && running)
         {
-            Joueur.GetCompoent<Animation>().Play("Run");
+           
             horizontalmove = Input.GetAxis("Horizontal") * Time.deltaTime * 100;
             verticalmove= Input.GetAxis("Vertical") * Time.deltaTime * 100;
             transform.Rotate(0,horizontalmove,0);
@@ -25,11 +33,11 @@ public class PlayerControle : MonoBehaviour
         {
             if (!running)
             {
-                Joueur.GetCompoent<Animation>().Play("Walk");
+                
                 horizontalmove = Input.GetAxis("Horizontal") * Time.deltaTime * 100;
                 verticalmove= Input.GetAxis("Vertical") * Time.deltaTime * 100;
             }
-            Joueur.GetCompoent<Animation>().Play("Idle");
+            
             running= false;
           
         } 
