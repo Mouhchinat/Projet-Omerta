@@ -16,3 +16,7 @@ MonoBehaviour:
   health: 200
   damage: 20
   speed: 3
+  sightRange: 30
+  attackRange: 10
+  cooldown: 5
+  isAlive: 0

@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class StrategiesV2 : MonoBehaviour
 {
     private NavMeshAgent navAgent;
-    public EnemyData enemyData;
+    public Enemy enemy;
     public Transform playerTransform;
     public Player player;
+    public bool isAttacking;
     
     void Start()
     {
@@ -16,15 +18,15 @@ public class StrategiesV2 : MonoBehaviour
         {
             navAgent = GetComponent<NavMeshAgent>();
         }
-        if (enemyData != null)
+        if (enemy != null)
         {
-            LoadEnemy(enemyData);
+            LoadEnemy(enemy);
         }
 
         current = 0;
     }
     
-    private void LoadEnemy(EnemyData _data)
+    private void LoadEnemy(Enemy _data)
     {
         // Supprime tous les child de l'empty s'il y en a 
         foreach (Transform child in transform)
@@ -39,14 +41,14 @@ public class StrategiesV2 : MonoBehaviour
             }
         }
 
-        navAgent.speed = enemyData.speed;
+        navAgent.speed = enemy.speed;
     }
 
     
     
     public void patrol()
     {
-        navAgent.speed = enemyData.speed;
+        navAgent.speed = enemy.speed;
         if (transform.position != points[current].position)
         {
             navAgent.SetDestination(points[current].position);
@@ -60,15 +62,23 @@ public class StrategiesV2 : MonoBehaviour
 
     public void chase()
     {
-        navAgent.speed = 2 * enemyData.speed;
+        navAgent.speed = 2 * enemy.speed;
         navAgent.SetDestination(playerTransform.position);
     }
 
     public void attack()
     {
-        navAgent.SetDestination(navAgent.transform.position);
-        transform.LookAt(playerTransform);
-        enemyData.Attack(player);
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            navAgent.isStopped = true;
+            
+            transform.LookAt(playerTransform);
+            enemy.Attack(player);
+            
+            isAttacking = false;
+            navAgent.isStopped = false;
+        }
     }
     
     
@@ -78,8 +88,8 @@ public class StrategiesV2 : MonoBehaviour
 
     void Update()
     {
-        playerInSightRange = Vector3.Distance(transform.position, playerTransform.position) < enemyData.sightRange;
-        playerInAttackRange = Vector3.Distance(transform.position, playerTransform.position) < enemyData.attackRange;
+        playerInSightRange = Vector3.Distance(transform.position, playerTransform.position) < enemy.sightRange;
+        playerInAttackRange = Vector3.Distance(transform.position, playerTransform.position) < enemy.rangeWeapon.range;
         
         
         if (playerInAttackRange)
