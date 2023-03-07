@@ -4,14 +4,14 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Behavior : MonoBehaviour
+public class StrategiesV2 : MonoBehaviour
 {
     private NavMeshAgent navAgent;
     public Enemy enemy;
     public Transform playerTransform;
     public Player player;
     public bool isAttacking;
-
+    
     void Start()
     {
         if (navAgent == null)
@@ -71,12 +71,13 @@ public class Behavior : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-
-            navAgent.SetDestination(transform.position);
+            navAgent.isStopped = true;
+            
             transform.LookAt(playerTransform);
             enemy.Attack(player);
             
             isAttacking = false;
+            navAgent.isStopped = false;
         }
     }
     
@@ -87,33 +88,21 @@ public class Behavior : MonoBehaviour
 
     void Update()
     {
-        if (enemy.isAlive)
+        playerInSightRange = Vector3.Distance(transform.position, playerTransform.position) < enemy.sightRange;
+        playerInAttackRange = Vector3.Distance(transform.position, playerTransform.position) < enemy.rangeWeapon.range;
+        
+        
+        if (playerInAttackRange)
         {
-            if (player.isAlive)
-            {
-                //bool obstacle = true if there is an object that hide the player from the enemy, else false
-                var playerPosition = playerTransform.position;
-                var enemyPosition = transform.position;
-                playerInSightRange = Vector3.Distance(enemyPosition, playerPosition) < enemy.sightRange;
-                playerInAttackRange = Vector3.Distance(enemyPosition, playerPosition) < enemy.rangeWeapon.range;
-
-                if (playerInAttackRange) // && !obstacle
-                {
-                    attack();
-                }
-                else if (playerInSightRange) // && !obstacle
-                {
-                    chase();
-                }
-                else
-                {
-                    patrol();
-                }
-            }
-            else
-            {
-                patrol();
-            }
+            attack();
+        }
+        else if (playerInSightRange)
+        {
+            chase();
+        }
+        else
+        {
+            patrol();
         }
     }
 }

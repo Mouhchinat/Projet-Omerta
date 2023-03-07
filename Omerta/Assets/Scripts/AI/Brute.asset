@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3625c2654bda434fb728a3b3178ce5ee, type: 3}
-  m_Name: Pistol
+  m_Script: {fileID: 11500000, guid: 5c8d2eaf58802804d9cf0a60308c1a59, type: 3}
+  m_Name: Brute
   m_EditorClassIdentifier: 
-  Name: Pistol
-  Damage: 15
-  ReloadTime: 5000
-  TimeBetweenShots: 1000
-  Capacity: 15
-  Ammo: 0
-  range: 15
+  name: Brute
+  health: 200
+  damage: 20
+  speed: 3
+  sightRange: 30
+  attackRange: 10
+  cooldown: 5
+  isAlive: 0

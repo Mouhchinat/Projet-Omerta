@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-
-namespace Weapon
+﻿namespace Weapon
 {
-    public abstract class Weapon : ScriptableObject
+    public abstract class Weapon
     {
-        public string Name;
+        public string Name { get; protected set; }
     }
 }
