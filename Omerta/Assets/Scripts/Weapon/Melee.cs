@@ -1,11 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 namespace Weapon
 {
+    [CreateAssetMenu(fileName = "Melee", menuName = "My Game/Melee")]
     public class Melee : Weapon
     {
-        public int Damage { get; protected set; }
-        public int TimeBetweenHits { get; private set; }
+        public int Damage;
+        public int TimeBetweenHits;
+
+        public Melee(string name, int damage, int timeBetweenHits)
+        {
+            Name = name;
+            Damage = damage;
+            TimeBetweenHits = timeBetweenHits;
+        }
 
         public void Hit()
         {

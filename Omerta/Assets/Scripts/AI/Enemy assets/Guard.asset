@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c8d2eaf58802804d9cf0a60308c1a59, type: 3}
-  m_Name: Brute
+  m_Name: Guard
   m_EditorClassIdentifier: 
-  name: Brute
+  name: EnemyTest
   health: 200
-  damage: 20
   speed: 3
   sightRange: 30
-  attackRange: 10
-  cooldown: 5
-  isAlive: 0
+  isAlive: 1
+  rangeWeapon: {fileID: 11400000, guid: fd2e165a973cd4d4db9a3609c45b4cfe, type: 2}
+  ammo: 5

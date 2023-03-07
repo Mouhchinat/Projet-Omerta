@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Weapon;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "My Game/Enemy Data")]
+[CreateAssetMenu(fileName = "Enemy", menuName = "My Game/Enemy")]
 public class Enemy : ScriptableObject
 {
     public string name;
@@ -14,7 +14,7 @@ public class Enemy : ScriptableObject
     public bool isAlive;
     public RangeWeapon rangeWeapon;
     public int ammo;
-
+    
     public void Attack(Player player)
     {
         if (player.isAlive)
@@ -22,7 +22,11 @@ public class Enemy : ScriptableObject
             int HowMany = 0;
             if (rangeWeapon.Shot())
             {
-                player.health -= rangeWeapon.Damage;
+                player.Health -= rangeWeapon.Damage;
+                if (player.Health <= 0)
+                {
+                    player.isAlive = false;
+                }
             }
             else
             {
