@@ -8,9 +8,9 @@ namespace Weapon
     [CreateAssetMenu(fileName = "RangeWeapon", menuName = "My Game/RangeWeapon")]
     public class RangeWeapon : Weapon
     {
-        public int Damage { get; protected set; }
-        public int ReloadTime { get; private set; }
-        public int TimeBetweenShots { get; private set; }
+        public int Damage;
+        public int ReloadTime;
+        public int TimeBetweenShots;
         public int Capacity;
         public int Ammo;
         public int range;
@@ -43,11 +43,6 @@ namespace Weapon
         {
             Task.Delay(ReloadTime);
             Ammo = Capacity;
-        }
-
-        public override string ToString()
-        {
-            return $"{Name}, {Damage}";
         }
     }
 }
