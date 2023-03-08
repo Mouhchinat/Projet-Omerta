@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Behavior : MonoBehaviour
+public class EnemyBehavior : MonoBehaviour
 {
     private NavMeshAgent navAgent;
     public Enemy enemy;
